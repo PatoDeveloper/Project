@@ -1,5 +1,12 @@
 {
   "name": "project",
   "integrations": {},
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "pro_id": "aplication_id",
+  "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "https://todo.ly/api"
+    }
+  ]
 }
