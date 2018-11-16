@@ -2,6 +2,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { Constants } from '../constants/constants';
 
 import { AboutPage } from '../pages/about/about';
 import { ProfilePage } from '../pages/profile/profile';
@@ -37,6 +38,7 @@ import { AuthProvider } from '../providers/auth/auth';
   providers: [
     StatusBar,
     SplashScreen,
+    Constants,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider
   ]

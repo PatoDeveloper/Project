@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Constants } from '../../constants/constants';
 
 /*
   Generated class for the AuthProvider provider.
@@ -11,13 +12,13 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class AuthProvider {
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, public constants : Constants) {
     console.log('AuthProvider Provider Start ...');
     this.isUserAuthorized().subscribe((response) => { console.log(response)});
   }
 
   public isUserAuthorized = () : Observable<any> =>{
-    return this.http.get("http://localhost:8100/api/authentication/isauthenticated.json");
+    return this.http.get(this.constants.isAuthenticatedUrl);
   }
 
 
