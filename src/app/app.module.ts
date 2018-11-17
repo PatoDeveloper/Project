@@ -13,6 +13,10 @@ import { HttpClientModule } from '@angular/common/http'
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthProvider } from '../providers/auth/auth';
+import { UserProvider } from '../providers/user/user';
+import { Cache } from '../models/cache/cache';
+import { Header } from '../providers/header/header';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,8 @@ import { AuthProvider } from '../providers/auth/auth';
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -40,7 +45,10 @@ import { AuthProvider } from '../providers/auth/auth';
     SplashScreen,
     Constants,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthProvider
+    AuthProvider,
+    UserProvider,
+    Cache,
+    Header,
   ]
 })
 export class AppModule {}

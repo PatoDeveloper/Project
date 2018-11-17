@@ -2,9 +2,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Constants } from '../../constants/constants';
-import { User } from '../../models/user/user';
 import { RegisterUser } from '../../models/user/registerUser';
-
+import { Cache } from '../../models/cache/cache'; 
+import { Header } from '../../providers/header/header'; 
 /*
   Generated class for the AuthProvider provider.
 
@@ -14,31 +14,26 @@ import { RegisterUser } from '../../models/user/registerUser';
 @Injectable()
 export class AuthProvider {
 
-  constructor(public http: HttpClient, public constants : Constants) {
+  private cache : Cache;
+  private header : Header;
+  constructor(public http: HttpClient, public constants : Constants, cache : Cache, header : Header) {
     console.log('AuthProvider Provider Start ...');
-
-    let user = new RegisterUser();
-    user.Email = "testovaciUser@seznam.cz";
-    user.Password = "hesloheslo";
-    user.FullName = "Testovaci user";
+    this.cache = cache;
+    this.header = header;
   }
   
-
   public isUserAuthorized = () : Observable<any> =>{
-    return this.http.get(this.constants.isAuthenticatedUrl);
+    return this.http.get(this.constants.isAuthenticatedUrl, {withCredentials:true, headers: this.header.getHeader(), observe: "body"});
   }
 
   public registerUser = (registerUser : RegisterUser) : Observable<any> => {
     return this.http.post(this.constants.registrationUserUrl, registerUser);
-    
   }
 
   public loginUser = (loginUser : RegisterUser) : Observable<any> => {
     let auth = this.loginAndPasswordToHash(loginUser);
-    let headers: HttpHeaders = new HttpHeaders()
-      .set("Authorization", auth)
-      .set("Content-type" ,"application/json")
-      .set("Accept", "*/*");
+    this.cache.setAuthToken(auth);
+    let headers  = new HttpHeaders().set("Authorization", auth).set("Content-type" ,"application/json").set("Accept", "*/*");
     return this.http.get(this.constants.loginUserUrl, {headers : headers,observe:"response"});
   } 
 
