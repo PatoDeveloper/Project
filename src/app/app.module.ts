@@ -17,6 +17,8 @@ import { UserProvider } from '../providers/user/user';
 import { Cache } from '../models/cache/cache';
 import { Header } from '../providers/header/header';
 import { IonicStorageModule } from '@ionic/storage';
+import { ProjectProvider } from '../providers/project/project';
+import { ItemProvider } from '../providers/item/item';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,8 @@ import { IonicStorageModule } from '@ionic/storage';
     UserProvider,
     Cache,
     Header,
+    ProjectProvider,
+    ItemProvider,
   ]
 })
 export class AppModule {}

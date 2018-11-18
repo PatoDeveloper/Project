@@ -1,33 +1,60 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar no-border-bottom>
     <ion-title>
-      Contact
+      Segments
     </ion-title>
   </ion-navbar>
+
+  <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="typeOfSingIn">
+      <ion-segment-button value="login">
+        Login
+      </ion-segment-button>
+      <ion-segment-button value="registration">
+        Registration
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
-  
-
-    <ion-list>
-
-
-        <ion-item>
-          <ion-label stacked>Username</ion-label>
-          <ion-input type="text" [(ngModel)]="userName"></ion-input>
-        </ion-item>
-      
-        <ion-item>
-          <ion-label stacked>Password</ion-label>
-          <ion-input type="password" [(ngModel)]="password"></ion-input>
-        </ion-item>
-      
+  <div [ngSwitch]="typeOfSingIn">
+    <ion-list *ngSwitchCase="'login'">
+      <ion-item>
+        <ion-label stacked>Email</ion-label>
+        <ion-input type="text" [(ngModel)]="loginEmail"></ion-input>
+      </ion-item>
     
-    </ion-list>
-    
+      <ion-item>
+        <ion-label stacked>Password</ion-label>
+        <ion-input type="password" [(ngModel)]="loginPassword"></ion-input>
+      </ion-item>
+
+      <ion-item>
     <button ion-button large (click)="login()">Login</button>
-  
-  
+      </ion-item>
+    </ion-list>
 
+    <ion-list *ngSwitchCase="'registration'">
+      <ion-item>
+        <ion-label stacked>Full Name</ion-label>
+        <ion-input type="text" [(ngModel)]="registrationFullName"></ion-input>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label stacked>Email</ion-label>
+        <ion-input type="Email" [(ngModel)]="registrationEmail"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Password</ion-label>
+        <ion-input type="password" [(ngModel)]="registrationPassword"></ion-input>
+      </ion-item>
+      <ion-item>
+        <button ion-button large (click)="registration()">Register</button>
+          </ion-item>
+    </ion-list>
+
+
+  </div>
 </ion-content>
+

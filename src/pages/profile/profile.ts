@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { RegisterUser } from '../../models/user/registerUser';
 import { UserProvider } from '../../providers/user/user';
@@ -10,30 +10,57 @@ import { UserProvider } from '../../providers/user/user';
 })
 export class ProfilePage {
 
-  public loginEmail : string;
-  public loginpassword : string;
-  public registerEmail : string;
-  public registerFullName : string;
-  public registerPassword : string;
+  public loginEmail: string;
+  public loginPassword: string;
+  public registrationEmail: string;
+  public registrationFullName: string;
+  public registrationPassword: string;
+  typeOfSingIn: string = "login";
 
 
-  constructor(public navCtrl: NavController, public authProvider : AuthProvider,public  userProvider : UserProvider) {
-
+  constructor(public navCtrl: NavController, public authProvider: AuthProvider, public userProvider: UserProvider, public alertController: AlertController) {
   }
 
-  public login = () : any => {
-    let usr : RegisterUser = new RegisterUser();
+  public login = (): any => {
+    let usr: RegisterUser = new RegisterUser();
     usr.Email = this.loginEmail;
-    usr.Password = this.loginpassword;
-    this.authProvider.loginUser(usr).subscribe( response => { this.authProvider.isUserAuthorized().subscribe(x => {console.log("isAuth: " + x);}) });
+    usr.Password = this.loginPassword;
+    usr.FullName = "fullName";
+    this.authProvider.loginUser(usr).subscribe(response => {
+      console.log(response);
+      this.authProvider.isUserAuthorized().subscribe(x => {
+        console.log("je authorizovany:" + x);
+        if (x == true) {
+          this.showSuccessLoginAlert();
+        } else {
+          this.showErrorLoginAlert();
+        }
+      })
+    });
   }
 
-  public register = () : any => {
-    let usr : RegisterUser = new RegisterUser();
-    usr.Email = this.registerEmail;
-    usr.Password = this.registerPassword;
-    usr.FullName = this.registerFullName;
-    this.authProvider.registerUser(usr).subscribe( response => { console.log("Jsi zaregistrovaný"); });
+  public registration = (): any => {
+    let usr: RegisterUser = new RegisterUser();
+    usr.Email = this.registrationEmail;
+    usr.Password = this.registrationPassword;
+    usr.FullName = this.registrationFullName;
+    this.authProvider.registerUser(usr).subscribe(response => { console.log("Jsi zaregistrovaný"); });
+  }
+
+  private showSuccessLoginAlert = (): void => {
+    this.alertController.create({
+      title: 'Login',
+      subTitle: 'Login was success!',
+      buttons: ['OK']
+    }).present();
+  }
+
+  private showErrorLoginAlert = (): void => {
+    this.alertController.create({
+      title: 'Login',
+      subTitle: 'Error!',
+      buttons: ['OK']
+    }).present();
   }
 
 }
