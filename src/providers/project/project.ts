@@ -22,4 +22,9 @@ export class ProjectProvider {
     return this.http.get(this.constants.getAllProjectsUrl, {headers : this.headers.getHeader(), withCredentials : true});
   } 
 
+  getProjectById = (projectId : number) : Observable<any> => {
+    let url = this.constants.getProjectByIdUrl;
+    url = url.replace("projectId", projectId.toString());
+    return this.http.get(url, {headers:this.headers.getHeader(),withCredentials:true});
+  }
 }

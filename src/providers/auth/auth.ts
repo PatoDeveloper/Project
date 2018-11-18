@@ -17,7 +17,6 @@ export class AuthProvider {
   private cache : Cache;
   private header : Header;
   constructor(public http: HttpClient, public constants : Constants, cache : Cache, header : Header) {
-    console.log('AuthProvider Provider Start ...');
     this.cache = cache;
     this.header = header;
   }

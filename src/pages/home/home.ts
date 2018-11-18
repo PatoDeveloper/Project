@@ -3,7 +3,8 @@ import { NavController } from 'ionic-angular';
 import { ProjectProvider } from '../../providers/project/project';
 import { Project } from '../../models/project/project';
 import { ItemProvider } from '../../providers/item/item';
-import { AboutPage } from '../about/about';
+import { ItemsPage } from '../items/items';
+import { AuthProvider } from '../../providers/auth/auth';
 
 @Component({
   selector: 'page-home',
@@ -11,22 +12,26 @@ import { AboutPage } from '../about/about';
 })
 export class HomePage {
 
+  public isAuth : boolean = false;
   public projects: Array<Project> = new Array<Project>();
 
-  constructor(public navCtrl: NavController, public projectProvider: ProjectProvider, public itemProvider: ItemProvider) {
-    // this.projectProvider.getAllProjects().subscribe( (response) => console.log(response));
+  constructor(public navCtrl: NavController, public projectProvider: ProjectProvider, public itemProvider: ItemProvider, public authProvider : AuthProvider) {
+    setTimeout(() => {
+    this.authProvider.isUserAuthorized().subscribe(response => {this.isAuth = response;}); //Pouze pro zpoždění inicialiaze. Zázračně pomohlo ale asi prasárna
+    this.refresh();
+    }, 1000);
   }
 
-  
+  ionViewDidLoad() {
+    this.authProvider.isUserAuthorized().subscribe(response => {this.isAuth = response});
+  }
+
+
   public refresh = (): void => {
     this.projectProvider.getAllProjects().subscribe((response) => { this.projects = response });
-    console.log(this.projects);
   }
 
   public getItemsByProject = (projectID: number) => {
-    console.log(projectID);
-    this.navCtrl.push(AboutPage,{selectedProjectId : projectID});
-    // this.navCtrl.parent.select(1);
-    // this.itemProvider.getAllItemsByProjectId(projectID).subscribe((response) => { console.log(response) });
+    this.navCtrl.push(ItemsPage,{selectedProjectId : projectID});
   }
 }

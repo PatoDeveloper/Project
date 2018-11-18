@@ -28,4 +28,10 @@ export class ItemProvider {
     return this.http.post(this.constants.inserNewItemUrl, ItemObject, {headers:this.headers.getHeader(),withCredentials:true});
   }
 
+  public deleteItem = (itemId : number) : Observable<any> => {
+    let url : string = this.constants.deleteItemUrl;
+    url = url.replace("itemId", itemId.toString());
+    return this.http.delete(url, {headers : this.headers.getHeader(), withCredentials : true});
+  }
+
 }
