@@ -20,6 +20,11 @@ export class ProfilePage {
   public user: User = new User();
 
   constructor(public navCtrl: NavController, public authProvider: AuthProvider, public userProvider: UserProvider, public alertController: AlertController) {
+    this.authProvider.isUserAuthorized().subscribe(isAuth => {
+      if(isAuth === true){
+        userProvider.get().subscribe(user => { this.user = user});
+      }
+    })
   }
 
 

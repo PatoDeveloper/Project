@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, RefresherContent } from 'ionic-angular';
 import { ProjectProvider } from '../../providers/project/project';
 import { Project } from '../../models/project/project';
 import { ItemProvider } from '../../providers/item/item';
@@ -24,8 +24,16 @@ export class HomePage {
 
   ionViewDidLoad() {
     this.authProvider.isUserAuthorized().subscribe(response => {this.isAuth = response});
+    this.refresh();
   }
 
+  public doRefresh(refresh) {
+      this.authProvider.isUserAuthorized().subscribe(isAuth => {
+        if(isAuth===true){
+          this.projectProvider.getAllProjects().subscribe((response) => { this.projects = response; refresh.complete(); });
+        }
+      });
+  }
 
   public refresh = (): void => {
     this.projectProvider.getAllProjects().subscribe((response) => { this.projects = response });

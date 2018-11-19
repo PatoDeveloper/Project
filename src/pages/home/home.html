@@ -4,20 +4,26 @@
   </ion-navbar>
 </ion-header>
 
+
+
 <ion-content padding>
 
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list *ngIf="isAuth===true">
+    <button ion-item *ngFor="let project of projects" (click)="getItemsByProject(project.Id)">
+      {{project.Id}} {{ project.Content }}
+    </button>
+  </ion-list>
 
   <!-- <button ion-button (click)="refresh()">Default</button> -->
-  
+
   <!-- <h3 *ngIf="isAuth===false">
     You are not sing in.
   </h3> -->
 
-  <ion-list *ngIf="isAuth===true">
-    <button ion-item *ngFor="let project of projects" (click)="getItemsByProject(project.Id)">
-     {{project.Id}} {{ project.Content }} 
-     <!-- <button ion-fab mini class="home-add-item"><ion-icon name="add"></ion-icon></button> -->
-    </button>  
-  </ion-list>
+
 
 </ion-content>
