@@ -19,6 +19,7 @@ export class Cache {
       }
     
     setAuthToken = (token: string) : void => {
+        this.authToken = token;
         this.storage.set(this.authTokenKey, JSON.stringify(token));
     }
 

@@ -20,19 +20,33 @@
 <ion-content>
   <div [ngSwitch]="typeOfSingIn">
     <ion-list *ngSwitchCase="'login'">
-      <ion-item>
+      <ion-item *ngIf="user.Email===undefined">
         <ion-label stacked>Email</ion-label>
         <ion-input type="text" [(ngModel)]="loginEmail"></ion-input>
       </ion-item>
-    
-      <ion-item>
+
+      <ion-item *ngIf="user.Email===undefined"> 
         <ion-label stacked>Password</ion-label>
         <ion-input type="password" [(ngModel)]="loginPassword"></ion-input>
       </ion-item>
 
-      <ion-item>
-    <button ion-button large (click)="login()">Login</button>
+      <ion-item *ngIf="user.Email===undefined">
+        <button ion-button large (click)="login()">Login</button>
       </ion-item>
+
+      <ion-item *ngIf="user.Email!==undefined">
+        {{user.Email}}
+      </ion-item>
+
+      
+      <ion-item *ngIf="user.Email!==undefined">
+        {{user.FullName}}
+      </ion-item>
+
+      <ion-item *ngIf="user.Email!==undefined">
+        <button ion-button large (click)="logout()">Logout</button>
+      </ion-item>
+
     </ion-list>
 
     <ion-list *ngSwitchCase="'registration'">
@@ -40,7 +54,7 @@
         <ion-label stacked>Full Name</ion-label>
         <ion-input type="text" [(ngModel)]="registrationFullName"></ion-input>
       </ion-item>
-    
+
       <ion-item>
         <ion-label stacked>Email</ion-label>
         <ion-input type="Email" [(ngModel)]="registrationEmail"></ion-input>
@@ -51,10 +65,9 @@
       </ion-item>
       <ion-item>
         <button ion-button large (click)="registration()">Register</button>
-          </ion-item>
+      </ion-item>
     </ion-list>
 
 
   </div>
 </ion-content>
-

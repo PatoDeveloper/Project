@@ -40,5 +40,7 @@ export class AuthProvider {
     return "Basic " + btoa(loginUser.Email + ":" + loginUser.Password);
   }
   
-
+  public logout = () : void => {
+    this.cache.setAuthToken("emptyString");
+  }
 }

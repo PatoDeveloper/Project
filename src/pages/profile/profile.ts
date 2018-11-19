@@ -3,6 +3,7 @@ import { NavController, AlertController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { RegisterUser } from '../../models/user/registerUser';
 import { UserProvider } from '../../providers/user/user';
+import { User } from '../../models/user/user';
 
 @Component({
   selector: 'page-profile',
@@ -16,10 +17,11 @@ export class ProfilePage {
   public registrationFullName: string;
   public registrationPassword: string;
   typeOfSingIn: string = "login";
-
+  public user: User = new User();
 
   constructor(public navCtrl: NavController, public authProvider: AuthProvider, public userProvider: UserProvider, public alertController: AlertController) {
   }
+
 
   public login = (): any => {
     let usr: RegisterUser = new RegisterUser();
@@ -29,11 +31,15 @@ export class ProfilePage {
     this.authProvider.loginUser(usr).subscribe(response => {
       console.log(response);
       this.authProvider.isUserAuthorized().subscribe(x => {
-        console.log("je authorizovany:" + x);
-        if (x == true) {
+        if (x === true) {
           this.showSuccessLoginAlert();
-        } else {
+          this.loginEmail = "";
+          this.loginPassword = "";
+          this.userProvider.get().subscribe(user => this.user = user);
+        }
+        else {
           this.showErrorLoginAlert();
+          this.loginPassword = "";
         }
       })
     });
@@ -63,4 +69,11 @@ export class ProfilePage {
     }).present();
   }
 
+  public logout = () => {
+    this.authProvider.logout();
+    localStorage.clear();
+    sessionStorage.clear();
+    document.cookie = "ASP.NET_SessionId" + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    this.user = new User();
+  }
 }
