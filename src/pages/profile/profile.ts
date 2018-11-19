@@ -50,13 +50,21 @@ export class ProfilePage {
     usr.Email = this.registrationEmail;
     usr.Password = this.registrationPassword;
     usr.FullName = this.registrationFullName;
-    this.authProvider.registerUser(usr).subscribe(response => { console.log("Jsi zaregistrovaný"); });
+    this.authProvider.registerUser(usr).subscribe(response => { this.showSuccessRegistrationAlert() });
   }
 
   private showSuccessLoginAlert = (): void => {
     this.alertController.create({
       title: 'Login',
       subTitle: 'Login was success!',
+      buttons: ['OK']
+    }).present();
+  }
+
+  private showSuccessRegistrationAlert = (): void => {
+    this.alertController.create({
+      title: 'Registration',
+      subTitle: 'Registration was success!',
       buttons: ['OK']
     }).present();
   }
@@ -73,7 +81,7 @@ export class ProfilePage {
     this.authProvider.logout();
     localStorage.clear();
     sessionStorage.clear();
-    document.cookie = "ASP.NET_SessionId" + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = "ASP.NET_SessionId"+'=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     this.user = new User();
   }
 }
