@@ -30,8 +30,13 @@ export class HomePage {
   public doRefresh(refresh) {
       this.authProvider.isUserAuthorized().subscribe(isAuth => {
         if(isAuth===true){
-          this.projectProvider.getAllProjects().subscribe((response) => { this.projects = response; refresh.complete(); });
+          this.isAuth = isAuth; 
+          this.projectProvider.getAllProjects().subscribe((response) => { this.projects = response; refresh.complete()});
+        }else{
+          this.isAuth = false;
+          this.projects = new Array<Project>();
         }
+        refresh.complete();
       });
   }
 
