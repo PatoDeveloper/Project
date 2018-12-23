@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, ModalController } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
 import { ItemProvider } from '../../providers/item/item';
 import { Item } from '../../models/item/item';
@@ -11,7 +11,7 @@ import { ProjectProvider } from '../../providers/project/project';
 })
 export class ItemsPage {
 
-  public items: Array<Item>;
+  public items: Array<Item> = new Array<Item>();
   public selectedProjectId: number = 0;
   public issue: string;
   public projectName: string = "Loading...";
@@ -23,7 +23,8 @@ export class ItemsPage {
     public navParams: NavParams,
     public itemProvider: ItemProvider, 
     public projectProvider: ProjectProvider,
-    public loadingControler : LoadingController) 
+    public loadingControler : LoadingController,
+    public modalController : ModalController) 
     { 
     this.loader = this.loadingControler.create({
       content: "Please wait...",
@@ -46,6 +47,11 @@ export class ItemsPage {
     this.itemProvider.deleteItem(itemId).subscribe(response => {
       this.itemProvider.getAllItemsByProjectId(this.selectedProjectId).subscribe(resp => this.items = resp);
     })
+  }
+
+  public addNewTodo(){
+    const modal = this.modalController.create('ItemModalPage', {selectedProjectId : this.selectedProjectId});
+    modal.present();
   }
 
   public createItem = (): void => {
