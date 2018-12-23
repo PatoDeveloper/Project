@@ -24,11 +24,11 @@
         </ion-item>
       <ion-item>
           <ion-label>Notification Time</ion-label>
-          <ion-datetime displayFormat="H:mm" pickerFormat="H mm"></ion-datetime>
+          <ion-datetime displayFormat="H:mm" pickerFormat="H mm" [(ngModel)]="item.DueDate"></ion-datetime>
           <!-- [(ngModel)]="event.timeStarts" -->
         </ion-item>
         <ion-item>
-            <button ion-button color="secondary">Save TODO </button>
+            <button ion-button color="secondary" (click)="addNewItem()">Save TODO </button>
         </ion-item>
   </ion-list>
 

@@ -12,7 +12,7 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-list *ngIf="isAuth===true">
+  <ion-list *ngIf="isAuth===true && projects!=undefined && projects.length != 0">
     <button ion-item *ngFor="let project of projects" (click)="getItemsByProject(project.Id)">
       {{project.Id}} {{ project.Content }}
     </button>

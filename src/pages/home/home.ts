@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, RefresherContent } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { ProjectProvider } from '../../providers/project/project';
 import { Project } from '../../models/project/project';
 import { ItemProvider } from '../../providers/item/item';
@@ -16,10 +16,13 @@ export class HomePage {
   public projects: Array<Project> = new Array<Project>();
 
   constructor(public navCtrl: NavController, public projectProvider: ProjectProvider, public itemProvider: ItemProvider, public authProvider : AuthProvider) {
+    this.projects = new Array<Project>();
     setTimeout(() => {
-    this.authProvider.isUserAuthorized().subscribe(response => {this.isAuth = response;}); //Pouze pro zpoždění inicialiaze. Zázračně pomohlo ale asi prasárna
+    this.authProvider.isUserAuthorized().subscribe(response => {this.isAuth = response;
+      
+    }); //Pouze pro zpoždění inicialiaze. Zázračně pomohlo ale asi prasárna
     this.refresh();
-    }, 1000);
+    }, 2000);
   }
 
   ionViewDidLoad() {

@@ -13,6 +13,8 @@ export class Header {
         return new HttpHeaders()
         .set("Authorization", this.cache.getAuthToken())
         .set("Content-type" ,"application/json")
-        .set("Accept", "*/*");
+        .set("Accept", "*/*")
+        .set('Access-Control-Allow-Origin', '*')
+        .set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     }
 }

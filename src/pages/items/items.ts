@@ -50,7 +50,7 @@ export class ItemsPage {
   }
 
   public addNewTodo(){
-    const modal = this.modalController.create('ItemModalPage', {selectedProjectId : this.selectedProjectId});
+    var modal = this.modalController.create('ItemModalPage', {selectedProjectId : this.selectedProjectId});
     modal.present();
   }
 
