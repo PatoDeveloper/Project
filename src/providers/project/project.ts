@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Constants } from '../../constants/constants';
-import { AuthProvider } from '../auth/auth';
 import { Header } from '../header/header';
 import { Observable } from 'rxjs/Observable';
 

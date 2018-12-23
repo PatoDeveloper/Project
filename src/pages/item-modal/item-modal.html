@@ -20,15 +20,15 @@
   <ion-list>
       <ion-item>
           <ion-label floating>To Do text</ion-label>
-          <ion-input type="text"></ion-input>
+          <ion-input type="text" [(ngModel)]="item.Content"></ion-input>
         </ion-item>
       <ion-item>
           <ion-label>Notification Time</ion-label>
-          <ion-datetime displayFormat="H:mm" pickerFormat="H mm"></ion-datetime>
+          <ion-datetime displayFormat="D. M. YYYY - H:mm" pickerFormat="D M YYYY H mm" [(ngModel)]="item.DueDate"></ion-datetime>
           <!-- [(ngModel)]="event.timeStarts" -->
         </ion-item>
         <ion-item>
-            <button ion-button color="secondary">Save TODO </button>
+            <button ion-button color="secondary" (click)="addNewTodo()">Save TODO </button>
         </ion-item>
   </ion-list>
 

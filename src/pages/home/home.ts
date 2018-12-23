@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, RefresherContent } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { ProjectProvider } from '../../providers/project/project';
 import { Project } from '../../models/project/project';
 import { ItemProvider } from '../../providers/item/item';

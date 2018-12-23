@@ -15,17 +15,16 @@ export class ItemsPage {
   public selectedProjectId: number = 0;
   public issue: string;
   public projectName: string = "Loading...";
-  public loader : any;
+  public loader: any;
 
   constructor(
-    public navCtrl: NavController, 
-    public userProvider: UserProvider, 
+    public navCtrl: NavController,
+    public userProvider: UserProvider,
     public navParams: NavParams,
-    public itemProvider: ItemProvider, 
+    public itemProvider: ItemProvider,
     public projectProvider: ProjectProvider,
-    public loadingControler : LoadingController,
-    public modalController : ModalController) 
-    { 
+    public loadingControler: LoadingController,
+    public modalController: ModalController) {
     this.loader = this.loadingControler.create({
       content: "Please wait...",
       duration: 3000,
@@ -37,6 +36,7 @@ export class ItemsPage {
       this.items = response;
       this.loader.dismiss();
     })
+
   }
 
   ionViewDidLoad() {
@@ -49,8 +49,8 @@ export class ItemsPage {
     })
   }
 
-  public addNewTodo(){
-    const modal = this.modalController.create('ItemModalPage', {selectedProjectId : this.selectedProjectId});
+  public addNewTodo() {
+    const modal = this.modalController.create('ItemModalPage', { selectedProjectId: this.selectedProjectId });
     modal.present();
   }
 
@@ -64,6 +64,7 @@ export class ItemsPage {
         this.itemProvider.getAllItemsByProjectId(this.selectedProjectId).subscribe(items => {
           this.items = items;
           this.issue = "";
+
         })
       }
     });

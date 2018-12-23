@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Constants } from '../../constants/constants';
 import { Header } from '../header/header';
 import { Observable } from 'rxjs/Observable';
+import { Item } from 'ionic-angular';
 
 /*
   Generated class for the ProjectProvider provider.
@@ -27,6 +28,10 @@ export class ItemProvider {
     let ItemObject = {Content:issue, ProjectId : projectId};
     return this.http.post(this.constants.inserNewItemUrl, ItemObject, {headers:this.headers.getHeader(),withCredentials:true});
   }
+
+  public createNewFullItem = (item:Item) : Observable<any> => {
+    return this.http.post(this.constants.inserNewItemUrl, item, {headers:this.headers.getHeader(),withCredentials:true});
+  } 
 
   public deleteItem = (itemId : number) : Observable<any> => {
     let url : string = this.constants.deleteItemUrl;
