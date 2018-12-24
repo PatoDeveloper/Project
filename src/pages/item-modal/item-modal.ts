@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams, ViewController, DateTime } from 'ionic-angular';
+import { IonicPage, NavParams, ViewController } from 'ionic-angular';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { Item } from '../../models/item/item';
 import { ItemProvider } from '../../providers/item/item';
@@ -30,25 +30,26 @@ export class ItemModalPage {
   }
 
   public addNewTodo(){
-    console.log("asdasdasdasdasd" + this.item.Content);
-    this.itemProvider.createNewItem(this.item.Content, this.selectedProjectId);
-    if(this.item.DueDate == undefined || this.item.DueDate == null){
-      return;
-    }else{
-      console.log(this.item.DueDate.getMilliseconds());
-      console.log(new Date(this.item.DueDate.toString()).getDate());
-      
+    this.itemProvider.createNewItem(this.item.Content, this.selectedProjectId).subscribe((response)=>{
+      if(response){
+        if(this.item.DueDate == undefined || this.item.DueDate == null){
+        }else{
+          this.notificationService.schedule({
+            text: 'To do: '+ this.item.Content,
+            trigger: {at: new Date(this.item.DueDate)},
+            led: 'FF0000',
+            sound: null
+         });
+        }
+        this.closeModal();
+        
+      }
+    });
+    
+    
 
-      window["asdasd"] = this.item.DueDate;
-    //   this.notificationService.schedule({
-    //     text: 'To do: '+ this.item.Content,
-    //     trigger: {at: new Date(this.item.DueDate.getDate())},
-    //     led: 'FF0000',
-    //     sound: null
-    //  });
 
     // ionic cordova run android --prod -lcs
-    }
   }
 
   ionViewDidLoad() {

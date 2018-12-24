@@ -36,22 +36,28 @@ export class ItemsPage {
       this.items = response;
       this.loader.dismiss();
     })
-
   }
 
   ionViewDidLoad() {
     this.selectedProjectId = this.navParams.data["selectedProjectId"];
+    this.itemProvider.getAllItemsByProjectId(this.selectedProjectId).subscribe(response => {
+      this.items = response;})
   }
 
   public deleteItem = (itemId: number) => {
     this.itemProvider.deleteItem(itemId).subscribe(response => {
-      this.itemProvider.getAllItemsByProjectId(this.selectedProjectId).subscribe(resp => this.items = resp);
+      this.itemProvider.getAllItemsByProjectId(this.selectedProjectId).subscribe(resp => { this.items = resp; });
     })
   }
 
   public addNewTodo() {
-    const modal = this.modalController.create('ItemModalPage', { selectedProjectId: this.selectedProjectId });
+    var modal = this.modalController.create('ItemModalPage', { selectedProjectId: this.selectedProjectId });
     modal.present();
+  }
+
+  public reload(){
+    this.itemProvider.getAllItemsByProjectId(this.selectedProjectId).subscribe(response => {
+      this.items = response;});
   }
 
   public createItem = (): void => {
@@ -64,7 +70,6 @@ export class ItemsPage {
         this.itemProvider.getAllItemsByProjectId(this.selectedProjectId).subscribe(items => {
           this.items = items;
           this.issue = "";
-
         })
       }
     });
