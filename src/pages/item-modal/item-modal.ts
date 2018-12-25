@@ -34,6 +34,7 @@ export class ItemModalPage {
       if(response){
         if(this.item.DueDate == undefined || this.item.DueDate == null){
         }else{
+          console.log("Notifikace insert");
           this.notificationService.schedule({
             text: 'To do: '+ this.item.Content,
             trigger: {at: new Date(this.item.DueDate)},

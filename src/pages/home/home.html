@@ -12,7 +12,7 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-list *ngIf="isAuth===true">
+  <ion-list *ngIf="isAuth===true && projects != undefined">
     <button ion-item *ngFor="let project of projects" (click)="getItemsByProject(project.Id)">
       {{project.Id}} {{ project.Content }}
     </button>
@@ -20,9 +20,9 @@
 
   <!-- <button ion-button (click)="refresh()">Default</button> -->
 
-  <!-- <h3 *ngIf="isAuth===false">
+  <h3 *ngIf="isAuth===false">
     You are not sing in.
-  </h3> -->
+  </h3>
 
 
 
